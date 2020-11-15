@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using QuoteOfTheDay.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace QuoteOfTheDay.Data
 {
@@ -14,7 +15,7 @@ namespace QuoteOfTheDay.Data
 
         public IEnumerable<Quote> GetAll()
         {
-            return _dbContext.Quotes;
+            return _dbContext.Quotes.Include(q => q.Category);
         }
 
         public Quote GetById(int id)

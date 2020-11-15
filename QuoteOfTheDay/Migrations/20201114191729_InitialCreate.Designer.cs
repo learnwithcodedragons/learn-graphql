@@ -9,16 +9,48 @@ using QuoteOfTheDay.Data;
 namespace QuoteOfTheDay.Migrations
 {
     [DbContext(typeof(QuoteOfTheDayDbContext))]
-    [Migration("20200905181049_InitialCreate")]
+    [Migration("20201114191729_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.6")
+                .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("QuoteOfTheDay.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Inspirational"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Funny"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Dark"
+                        });
+                });
 
             modelBuilder.Entity("QuoteOfTheDay.Entities.Quote", b =>
                 {
@@ -30,10 +62,15 @@ namespace QuoteOfTheDay.Migrations
                     b.Property<string>("Author")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Quotes");
 
@@ -42,20 +79,32 @@ namespace QuoteOfTheDay.Migrations
                         {
                             Id = 1,
                             Author = "Dr . Seuss",
+                            CategoryId = 1,
                             Text = "You’re off to great places, today is your day. Your mountain is waiting, so get on your way."
                         },
                         new
                         {
                             Id = 2,
                             Author = "Groucho Marx",
+                            CategoryId = 1,
                             Text = "No one is perfect - that’s why pencils have erasers."
                         },
                         new
                         {
                             Id = 3,
                             Author = "Wolfgang Riebe",
+                            CategoryId = 2,
                             Text = "Marriage is the chief cause of divorce."
                         });
+                });
+
+            modelBuilder.Entity("QuoteOfTheDay.Entities.Quote", b =>
+                {
+                    b.HasOne("QuoteOfTheDay.Entities.Category", "Category")
+                        .WithMany("Quotes")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

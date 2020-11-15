@@ -14,13 +14,11 @@ namespace QuoteOfTheDay.GraphQL
                 "quotes",
                 resolve: context => quoteRepository.Value.GetAll());
 
-            Field<QuoteType>(
-                "quote",
-                arguments: new QueryArguments(
-                    new QueryArgument<NonNullGraphType<IdGraphType>>
-                    {
-                        Name = "id"
-                    }),
+            Field<QuoteType>("quote", 
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
+                { 
+                    Name = "id"
+                }),
                 resolve: context =>
                 {
                     var id = context.GetArgument<int>("id");

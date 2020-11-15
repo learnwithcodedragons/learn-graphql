@@ -13,6 +13,11 @@ namespace QuoteOfTheDay.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Category>()
+                .HasMany(c => c.Quotes)
+                .WithOne(q => q.Category)
+                .IsRequired();
+
             modelBuilder.Seed();
 
             base.OnModelCreating(modelBuilder);

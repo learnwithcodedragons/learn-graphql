@@ -35,7 +35,7 @@ namespace QuoteOfTheDay
 
             services.AddSingleton<QuoteOfTheDaySchema>()
                 .AddSingleton<QuoteQuery>()
-                .AddGraphQL()
+                .AddGraphQL( options => options.EnableMetrics = false) // need to redo
                 .AddSystemTextJson(deserializerSettings => { }, serializerSettings => { })
                 .AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = Environment.IsDevelopment())
                 .AddGraphTypes(typeof(QuoteOfTheDaySchema));
