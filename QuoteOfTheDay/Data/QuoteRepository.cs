@@ -22,5 +22,38 @@ namespace QuoteOfTheDay.Data
         {
             return _dbContext.Find<Quote>(id);
         }
+
+        public Quote AddQuote(Quote quote)
+        {
+            _dbContext.Add<Quote>(quote);
+            _dbContext.SaveChanges();
+
+            _dbContext
+                .Entry(quote)
+                .Reference(q => q.Category)
+                .Load();
+            
+            return quote;
+        }
+
+        public Quote UpdateQuote(Quote quote)
+        {
+            _dbContext.Attach(quote);
+            _dbContext.SaveChanges();
+
+            _dbContext
+                .Entry(quote)
+                .Reference(q => q.Category)
+                .Load();
+
+            return quote;
+        }
+
+        public void DeleteQuote(int id)
+        {
+            var quote = GetById(id);
+            _dbContext.Remove(quote);
+            _dbContext.SaveChanges();
+        }
     }
 }
