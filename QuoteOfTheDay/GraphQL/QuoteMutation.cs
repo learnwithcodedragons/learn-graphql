@@ -31,24 +31,20 @@ namespace QuoteOfTheDay.GraphQL
                {
                    var quote = context.GetArgument<Quote>("quote");
                    var quoteId = context.GetArgument<int>("quoteId");
-                  
+
                    quote.Id = quoteId;
-                   
+
                    return quoteRepository.Value.UpdateQuote(quote);
                });
 
-
-            Field<StringGraphType>(
-               "deleteQuote",
-               arguments: new QueryArguments(
-                   new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "quoteId" }),
-               resolve: context =>
-               {
-                   var quoteId = context.GetArgument<int>("quoteId");
-                   quoteRepository.Value.DeleteQuote(quoteId);
-                   return "Quote Deleted";
-               });
-
+            Field<StringGraphType>("deleteQuote", 
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "quoteId"}),
+                resolve: context => 
+                {
+                    var quoteId = context.GetArgument<int>("quoteId");
+                    quoteRepository.Value.DeleteQuote(quoteId);
+                    return "Quote deleted";
+                });
         }
     }
 }
