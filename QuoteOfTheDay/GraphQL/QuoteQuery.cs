@@ -24,6 +24,11 @@ namespace QuoteOfTheDay.GraphQL
                     var id = context.GetArgument<int>("id");
                     return quoteRepository.Value.GetById(id);
                 });
+
+            Field<ListGraphType<CategoryType>>(
+                "categories",
+                resolve: context => quoteRepository.Value.GetCategroies());
+
         }
     }
 }

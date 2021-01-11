@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using QuoteOfTheDay.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace QuoteOfTheDay.Data
 {
@@ -20,7 +21,9 @@ namespace QuoteOfTheDay.Data
 
         public Quote GetById(int id)
         {
-            return _dbContext.Find<Quote>(id);
+            return _dbContext.Quotes  // needs refilming
+                .Include( q => q.Category)
+                .SingleOrDefault(c => c.Id == id);
         }
 
         public Quote AddQuote(Quote quote)
@@ -55,6 +58,11 @@ namespace QuoteOfTheDay.Data
             var quote = GetById(id);
             _dbContext.Remove(quote);
             _dbContext.SaveChanges(); 
+        }
+
+        public IEnumerable<Category> GetCategroies()
+        {
+            return _dbContext.Categories;
         }
 
     }

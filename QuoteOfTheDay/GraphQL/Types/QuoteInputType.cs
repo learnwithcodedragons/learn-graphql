@@ -7,7 +7,7 @@ namespace QuoteOfTheDay.GraphQL
         public QuoteInputType()
         {
             Name = "quoteInput";
-            Field<NonNullGraphType<StringGraphType>>("author");
+            Field<StringGraphType>("author");
             Field<NonNullGraphType<StringGraphType>>("text");
             Field<NonNullGraphType<IntGraphType>>("categoryId");
         }
