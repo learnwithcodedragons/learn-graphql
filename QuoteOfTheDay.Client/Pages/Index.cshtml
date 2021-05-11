@@ -1,0 +1,32 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "All Quotes";
+}
+
+<div class="text-center">
+    <h1 class="display-4">All Quotes</h1>
+</div>
+
+<a href="CreateQuote" class="btn btn-primary">Add New Quote</a>
+<br><br>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Author</th>
+            <th>Quote</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var quote in Model.Quotes)
+        {
+        <tr>
+            <td>@quote.Author</td>
+            <td>@quote.Text</td>
+            <td>@quote.Category.Name</td>
+        </tr>
+        }
+    </tbody>
+</table>

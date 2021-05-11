@@ -12,7 +12,7 @@ namespace QuoteOfTheDay.GraphQL
         {
             Field<ListGraphType<QuoteType>>(
                 "quotes",
-                resolve: context => quoteRepository.Value.GetAll());
+                resolve: __ => quoteRepository.Value.GetAll());
 
             Field<QuoteType>("quote", 
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>>
@@ -27,8 +27,7 @@ namespace QuoteOfTheDay.GraphQL
 
             Field<ListGraphType<CategoryType>>(
                 "categories",
-                resolve: context => quoteRepository.Value.GetCategroies());
-
+                resolve: __ => quoteRepository.Value.GetCategories());    
         }
     }
 }

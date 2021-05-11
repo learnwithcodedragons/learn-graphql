@@ -60,10 +60,9 @@ namespace QuoteOfTheDay.Data
             _dbContext.SaveChanges(); 
         }
 
-        public IEnumerable<Category> GetCategroies()
+        public IEnumerable<Category> GetCategories()
         {
             return _dbContext.Categories;
         }
-
     }
 }
