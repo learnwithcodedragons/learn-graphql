@@ -33,6 +33,32 @@ namespace QuoteOfTheDay.Client
             return response.Data.Quotes;
         }
 
+        public async Task<Quote> GetById(int id)
+        {
+            var request = new GraphQLRequest
+            {
+                Query = @"query($id: ID!){
+                              quote(id: $id){
+                                  id
+                                  text
+                                  author
+                                  category
+                                  {
+                                      id
+                                      name
+                                  }
+                              }
+                          }",
+                Variables = new
+                {
+                    id
+                }
+            };
+
+            var graphQLResponse = await _graphQLClient.SendQueryAsync<QuoteResponseType>(request);
+            return graphQLResponse.Data.Quote;
+        }
+
         public async Task<Quote> CreateQuote(QuoteInput quote)
         {
             var request = new GraphQLRequest
@@ -53,6 +79,22 @@ namespace QuoteOfTheDay.Client
             var response = await _graphQlClient.SendMutationAsync<QuoteResponse>(request);
             return response.Data.Quote;
         }
+
+        public async Task<ICollection<Category>> GetCategories()
+        {
+            var request = new GraphQLRequest
+            {
+                Query = @" { categories { id 
+                                        name
+                                        }
+                                    }"
+            };
+
+            var response = await _graphQlClient.SendQueryAsync<CategoryCollectionResponse>(request);
+            return response.Data.Categories;
+        }
+
+
     }
 
 }
