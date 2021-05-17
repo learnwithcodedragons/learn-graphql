@@ -15,6 +15,9 @@ namespace QuoteOfTheDay.Client.Pages
 
         public ICollection<Quote> Quotes { get; set; }
 
+        [BindProperty]
+        public int Id { get; set; }
+
         public IndexModel(QuoteOfTheDayApiClient quoteClient)
         {
             _quoteClient = quoteClient;
@@ -23,6 +26,12 @@ namespace QuoteOfTheDay.Client.Pages
         public async Task OnGet()
         {
             Quotes = await _quoteClient.GetAllQuotes();
+        }
+
+        public async Task<ActionResult> OnPost()
+        {
+            await _quoteClient.DeleteQuote(Id);
+            return Redirect("/");
         }
     }
 }

@@ -17,6 +17,7 @@
             <th>Author</th>
             <th>Quote</th>
             <th>Category</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +27,13 @@
             <td>@quote.Author</td>
             <td>@quote.Text</td>
             <td>@quote.Category.Name</td>
+            <td>
+                <form method="post" class="form-inline">
+                    <input asp-for="Id" type="hidden" value="@quote.Id" />
+                    <a href="UpdateQuote?id=@quote.Id" class="btn btn-outline-secondary">Update</a>&nbsp;
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                </form>
+            </td>
         </tr>
         }
     </tbody>

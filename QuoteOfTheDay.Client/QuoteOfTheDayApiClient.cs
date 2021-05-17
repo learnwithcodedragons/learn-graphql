@@ -47,16 +47,13 @@ namespace QuoteOfTheDay.Client
                                       id
                                       name
                                   }
-                              }
-                          }",
-                Variables = new
-                {
-                    id
-                }
+                               }
+                           }",
+                Variables = new { id }
             };
 
-            var graphQLResponse = await _graphQLClient.SendQueryAsync<QuoteResponseType>(request);
-            return graphQLResponse.Data.Quote;
+            var response = await _graphQlClient.SendQueryAsync<QuoteResponse>(request);
+            return response.Data.Quote;
         }
 
         public async Task<Quote> CreateQuote(QuoteInput quote)
@@ -80,6 +77,33 @@ namespace QuoteOfTheDay.Client
             return response.Data.Quote;
         }
 
+        public async Task<Quote> UpdateQuote(int id, QuoteInput quote)
+        {
+            var quoteRequest = new GraphQLRequest
+            {
+                Query = @"mutation($id: ID!, $quote: quoteInput!){
+                                  updateQuote(quoteId: $id, quote: $quote){
+                                      id
+                                      text
+                                      author
+                                      category
+                                      {
+                                           id
+                                           name
+                                      }
+                                  }
+                              }",
+                Variables = new
+                {
+                    quote,
+                    id
+                }
+            };
+
+            var response = await _graphQlClient.SendQueryAsync<QuoteResponse>(quoteRequest);
+            return response.Data.Quote;
+        }
+
         public async Task<ICollection<Category>> GetCategories()
         {
             var request = new GraphQLRequest
@@ -94,7 +118,18 @@ namespace QuoteOfTheDay.Client
             return response.Data.Categories;
         }
 
+        public async Task DeleteQuote(int id)
+        {
+            var request = new GraphQLRequest
+            {
+                Query = @"mutation($id: ID!) {
+                              deleteQuote(quoteId: $id)
+                           }",
+                Variables = new { id }
+            };
 
+            await _graphQlClient.SendMutationAsync<StringResponse>(request);
+        }
     }
 
 }
