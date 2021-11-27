@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuoteOfTheDay", "QuoteOfTheDay\QuoteOfTheDay.csproj", "{3E41C6C2-3568-4BBC-8F21-31F0C19BC7A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuoteOfTheDay.Client", "QuoteOfTheDay.Client\QuoteOfTheDay.Client.csproj", "{17DB3789-326A-48DE-B4D0-B32288D5A8E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuoteOfTheDay.Client", "QuoteOfTheDay.Client\QuoteOfTheDay.Client.csproj", "{17DB3789-326A-48DE-B4D0-B32288D5A8E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
