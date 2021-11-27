@@ -4,10 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using QuoteOfTheDay.Data;
-using QuoteOfTheDay.GraphQL;
-using GraphQL.Server;
-using GraphQL.Server.Ui.Playground;
-using Microsoft.Extensions.Hosting;
 
 namespace QuoteOfTheDay
 {
@@ -28,24 +24,12 @@ namespace QuoteOfTheDay
         {
             services.AddDbContext<QuoteOfTheDayDbContext>( options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
             services.AddScoped<QuoteRepository>();
-            services.AddScoped<QuoteOfTheDaySchema>();
-
-            services.AddDefer();
-            services.AddHttpScope();
-
-            services.AddSingleton<QuoteOfTheDaySchema>()
-                .AddSingleton<QuoteQuery>()
-                .AddGraphQL( options => options.EnableMetrics = false) // need to redo
-                .AddSystemTextJson(deserializerSettings => { }, serializerSettings => { })
-                .AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = Environment.IsDevelopment())
-                .AddGraphTypes(typeof(QuoteOfTheDaySchema));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseGraphQL<QuoteOfTheDaySchema>();
-            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+
         }
     }
 }
