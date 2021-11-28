@@ -2,12 +2,12 @@
 
 namespace QuoteOfTheDay.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -16,7 +16,7 @@ namespace QuoteOfTheDay.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -33,25 +33,25 @@ namespace QuoteOfTheDay.Migrations
                 {
                     table.PrimaryKey("PK_Quotes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Quotes_Category_CategoryId",
+                        name: "FK_Quotes_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "Category",
+                table: "Categories",
                 columns: new[] { "Id", "Name" },
                 values: new object[] { 1, "Inspirational" });
 
             migrationBuilder.InsertData(
-                table: "Category",
+                table: "Categories",
                 columns: new[] { "Id", "Name" },
                 values: new object[] { 2, "Funny" });
 
             migrationBuilder.InsertData(
-                table: "Category",
+                table: "Categories",
                 columns: new[] { "Id", "Name" },
                 values: new object[] { 3, "Dark" });
 
@@ -82,7 +82,7 @@ namespace QuoteOfTheDay.Migrations
                 name: "Quotes");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Categories");
         }
     }
 }

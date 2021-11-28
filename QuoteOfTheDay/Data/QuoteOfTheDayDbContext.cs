@@ -14,9 +14,7 @@ namespace QuoteOfTheDay.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-
-            modelBuilder.Entity<Category>().ToTable("Category")
+            modelBuilder.Entity<Category>()
                 .HasMany(c => c.Quotes)
                 .WithOne(q => q.Category)
                 .IsRequired();

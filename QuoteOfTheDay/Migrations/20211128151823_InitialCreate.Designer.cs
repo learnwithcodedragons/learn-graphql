@@ -9,7 +9,7 @@ using QuoteOfTheDay.Data;
 namespace QuoteOfTheDay.Migrations
 {
     [DbContext(typeof(QuoteOfTheDayDbContext))]
-    [Migration("20201114191729_InitialCreate")]
+    [Migration("20211128151823_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,7 +32,7 @@ namespace QuoteOfTheDay.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
 
                     b.HasData(
                         new
