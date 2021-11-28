@@ -28,15 +28,14 @@ namespace QuoteOfTheDay
         {
             services.AddDbContext<QuoteOfTheDayDbContext>( options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
             services.AddScoped<QuoteRepository>();
-            services.AddScoped<QuoteOfTheDaySchema>();
 
             services.AddDefer();
             services.AddHttpScope();
 
             services.AddSingleton<QuoteOfTheDaySchema>()
                 .AddSingleton<QuoteQuery>()
-                .AddGraphQL( options => options.EnableMetrics = false) // need to redo
-                .AddSystemTextJson(deserializerSettings => { }, serializerSettings => { })
+                .AddGraphQL( options => options.EnableMetrics = false)
+                .AddSystemTextJson()
                 .AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = Environment.IsDevelopment())
                 .AddGraphTypes(typeof(QuoteOfTheDaySchema));
         }
