@@ -14,8 +14,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SteroidsDI" Version="0.0.4" />
-    <PackageReference Include="SteroidsDI.AspNetCore" Version="0.0.4" />
+    <PackageReference Include="SteroidsDI" Version="1.0.1" />
+    <PackageReference Include="SteroidsDI.AspNetCore" Version="1.0.1" />
   </ItemGroup>
 
 
